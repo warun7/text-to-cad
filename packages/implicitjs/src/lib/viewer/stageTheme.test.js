@@ -14,3 +14,9 @@ test("getViewerThemeValue falls back to the base viewer theme", () => {
 test("getViewerThemeValue falls back to the provided default when key is unknown", () => {
   assert.equal(getViewerThemeValue({}, "unknownKey", "fallback-value"), "fallback-value");
 });
+
+test("getViewerThemeValue preserves falsy-but-defined viewer theme values", () => {
+  assert.equal(getViewerThemeValue({ surfaceMetalness: 0 }, "surfaceMetalness", 1), 0);
+  assert.equal(getViewerThemeValue({ surfaceRoughness: 0 }, "surfaceRoughness", 1), 0);
+  assert.equal(getViewerThemeValue({ surface: "" }, "surface", "#000000"), "");
+});
